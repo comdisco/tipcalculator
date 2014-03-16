@@ -3,6 +3,8 @@ package com.codepath.example.tipcalculator;
 import java.util.Locale;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	public EditText etTotal;
 	public TextView tvTip;
+	private double _currentPercentage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,28 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		etTotal = (EditText) findViewById(R.id.etTotal);
 		tvTip = (TextView) findViewById(R.id.tvTip);
+		
+		etTotal.addTextChangedListener(new TextWatcher() {
+			@Override
+		    public void onTextChanged(CharSequence s, int start, int before, int count) {
+		        // Fires right as the text is being changed (even supplies the range of text)
+		    }
+
+		    @Override
+		    public void beforeTextChanged(CharSequence s, int start, int count,
+		            int after) {
+		        // Fires right before text is changing
+		    }
+
+		    @Override
+		    public void afterTextChanged(Editable s) {
+		        // Fires right after the text has changed
+		    	if (_currentPercentage != 0.0)
+		    	{
+		    		calculateValue(_currentPercentage);
+		    	}
+		    }
+		});
 	}
 
 	@Override
@@ -29,12 +54,16 @@ public class MainActivity extends Activity {
 	
 	public void calculateValue(double percentage)
 	{
+		_currentPercentage = percentage;
 		String fieldValue = etTotal.getText().toString();
-		double total = Double.parseDouble(fieldValue);
-		total *= percentage;
-		// convert total to currency format
-		String formattedTip = String.format(Locale.getDefault(), "$%.2f", total);
-		tvTip.setText(formattedTip);
+		if (!fieldValue.isEmpty())
+		{
+			double total = Double.parseDouble(fieldValue);
+			total *= percentage;
+			// convert total to currency format
+			String formattedTip = String.format(Locale.getDefault(), "$%.2f", total);
+			tvTip.setText(formattedTip);
+		}
 	}
 	
 	public void onSubmit10(View v)
