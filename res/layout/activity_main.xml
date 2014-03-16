@@ -39,7 +39,7 @@
         android:layout_alignBaseline="@+id/btn15"
         android:layout_alignBottom="@+id/btn15"
         android:layout_alignRight="@+id/etTotal"
-        android:onClick="onSubmit"
+        android:onClick="onSubmit20"
         android:text="@string/twenty_percent" />
 
     <Button
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="onSubmit"
+        android:onClick="onSubmit15"
         android:text="@string/fifteen_percent" />
 
     <Button
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etTotal"
         android:layout_centerVertical="true"
-        android:onClick="onSubmit"
+        android:onClick="onSubmit10"
         android:text="@string/ten_percent" />
 
     <TextView

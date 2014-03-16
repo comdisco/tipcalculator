@@ -1,11 +1,15 @@
 package com.codepath.example.tipcalculator;
 
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	public EditText etTotal;
@@ -26,10 +30,32 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void onSubmit(View v)
+	public void calculateValue(double percentage)
 	{
 		String fieldValue = etTotal.getText().toString();
-		tvTip.setText(fieldValue);
+		double total = Double.parseDouble(fieldValue);
+		total *= percentage;
+		// convert total to currency format
+		String formattedTip = String.format(Locale.US, "%.2f", total);
+		tvTip.setText("$"+formattedTip);
+	}
+	
+	public void onSubmit10(View v)
+	{
+		double percentage = 0.1d;
+		calculateValue(percentage);
+	}
+	
+	public void onSubmit15(View v)
+	{
+		double percentage = 0.15d;
+		calculateValue(percentage);
+	}
+	
+	public void onSubmit20(View v)
+	{
+		double percentage = 0.2d;
+		calculateValue(percentage);
 	}
 
 }
